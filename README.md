@@ -37,7 +37,7 @@ incrementality. For example, running a daily backup then means forming
 and copying the entire tar-ball every day, even if only one small file
 has changed since the previous backup.
 
-**So, weight your options:** If you have mostly small files (less than
+**So, weigh your options:** If you have mostly small files (less than
 128KB in size), and the total volume is less than, say, 1GB, then
 you'll be better of using a backup approach based on tar-balls. That
 is not supported by the tools we provide here. But if you have a large
