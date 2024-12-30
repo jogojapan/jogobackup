@@ -58,14 +58,4 @@ virtually zero cost if your files never change.
    variables. Some of the values of these you'll have to update.
 
 ## Known Issues
-If you run through the Portainer UI, the Portainer view of the log
-file will show an error message, `No log line matching the '' filter`,
-until the first time the backup runs. If you configure it to run once
-every 24 hours, it might take up to 24 hours until the log view in
-Portainer will show useful information. (This is related to a quirk in
-how Portainer applies filters to log files, combined with the fact
-that our system hands process control to the container-internal
-cronjob, which does not produce log messages before the first time the
-cronjob runs.). If you use `docker logs` from the command line, the
-error message will not be shown, and the log will merely be empty
-until the first run of the backup.
+None currently known.
