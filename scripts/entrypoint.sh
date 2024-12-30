@@ -10,6 +10,8 @@ if [ -z "$JOGOBACKUP_SOURCE" ] || [ -z "$JOGOBACKUP_DEST_BUCKET" ] || \
     exit 1
 fi
 
+echo "[$(date -u '+%Y-%m-%d %H:%M:%S UTC')] Container is starting."
+
 # Ensure log file exists and has proper permissions
 touch /var/log/cron.log
 chmod 0644 /var/log/cron.log
@@ -22,7 +24,7 @@ mkfifo /tmp/logpipe
 chmod 666 /tmp/logpipe
 
 # Start logging process in background
-(tail -F /tmp/logpipe >> /var/log/cron.log 2>&1 &)
+(tail -F /tmp/logpipe | tee -a /var/log/cron.log) &
 
 # Create cron schedule based on JOGOBACKUP_HOURS
 CRON_SCHEDULE="0 */$JOGOBACKUP_HOURS * * *"
