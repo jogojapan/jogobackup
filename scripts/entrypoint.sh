@@ -10,18 +10,28 @@ if [ -z "$JOGOBACKUP_SOURCE" ] || [ -z "$JOGOBACKUP_DEST_BUCKET" ] || \
     exit 1
 fi
 
+# Ensure log file exists and has proper permissions
+touch /var/log/cron.log
+chmod 0644 /var/log/cron.log
+
+# Remove old pipe if it exists
+rm -f /tmp/logpipe
+
 # Create logging pipe
 mkfifo /tmp/logpipe
 chmod 666 /tmp/logpipe
 
 # Start logging process in background
-(tail -f /tmp/logpipe | tee -a /var/log/cron.log) &
+(tail -F /tmp/logpipe >> /var/log/cron.log 2>&1 &)
 
 # Create cron schedule based on JOGOBACKUP_HOURS
 CRON_SCHEDULE="0 */$JOGOBACKUP_HOURS * * *"
 
 # Create cron job - redirect to our named pipe
 echo "$CRON_SCHEDULE /app/backup.sh > /tmp/logpipe 2>&1" > /etc/crontabs/root
+
+# Log startup message
+echo "[$(date -u '+%Y-%m-%d %H:%M:%S UTC')] Container started, cron schedule: $CRON_SCHEDULE" > /tmp/logpipe
 
 # Start crond in foreground
 exec crond -f -l 8
