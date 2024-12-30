@@ -1,0 +1,17 @@
+# This is an example docker-compose.yml.
+
+# It configures two source directories. You can configure any number
+# of them. Make sure they are mapped to a mount point in the container
+# that is a subdirectory of what is specified in the
+# $JOGOBACKUP_SOURCE environment variable (by default, /source).
+
+services:
+  backup:
+    image: jogojapan/jogobackup:latest
+    volumes:
+      - /source1/on/host:/source/src1
+      - /source2/on/host:/source/src2
+      - /backup-metadata/on/host:/app/data   # <== Optional. If used, the directory on the host must be writable
+    env_file:
+      - .env
+    restart: unless-stopped
