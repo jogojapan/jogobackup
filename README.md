@@ -58,4 +58,11 @@ virtually zero cost if your files never change.
    variables. Some of the values of these you'll have to update.
 
 ## Known Issues
-None currently known.
+In the log output, you'll find entries such as this:
+
+    2024/12/30 22:00:00 NOTICE: Config file "/root/.config/rclone/rclone.conf" not found - using defaults
+
+This is as expected and no cause for alarm. It's a note by `rclone`
+(which is used internally) due to the fact that we control the
+`rclone` behavior through environment variables, rather than a config
+file.
