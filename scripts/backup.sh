@@ -43,8 +43,6 @@ log "Starting rclone copy with max-age ${diff_minutes}m"
 if rclone copy \
     --max-age "${diff_minutes}m" \
     --s3-storage-class "$JOGOBACKUP_STORAGECLASS" \
-    --progress \
-    --stats 30s \
     "$JOGOBACKUP_SOURCE" \
     "aws:$JOGOBACKUP_DEST_BUCKET" 2>&1; then
 
