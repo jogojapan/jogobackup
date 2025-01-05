@@ -42,10 +42,12 @@ fi
 log "Starting rclone copy with max-age ${diff_minutes}m"
 if rclone copy \
     --max-age "${diff_minutes}m" \
+    --links \
+    --log-level INFO \
+    --human-readable \
     --s3-storage-class "$JOGOBACKUP_STORAGECLASS" \
-    "$JOGOBACKUP_SOURCE" \
-    "aws:$JOGOBACKUP_DEST_BUCKET" 2>&1; then
-
+        "$JOGOBACKUP_SOURCE" \
+        "aws:$JOGOBACKUP_DEST_BUCKET" 2>&1; then
     # If successful, update the date file
     echo "$current_date" > "$DATE_FILE"
     log "Backup completed successfully"
