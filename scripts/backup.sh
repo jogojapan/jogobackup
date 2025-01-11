@@ -42,6 +42,7 @@ fi
 log "Starting rclone copy with max-age ${diff_minutes}m"
 if rclone copy \
     --max-age "${diff_minutes}m" \
+    --fast-list \
     --links \
     --log-level INFO \
     --human-readable \
