@@ -43,6 +43,7 @@ log "Starting rclone copy with max-age ${diff_minutes}m"
 if rclone copy \
     --max-age "${diff_minutes}m" \
     --links \
+    --exclude "$JOGOBACKUP_EXCLUDE" \
     --log-level INFO \
     --human-readable \
     --s3-storage-class "$JOGOBACKUP_STORAGECLASS" \
